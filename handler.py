@@ -15,7 +15,7 @@ def handler(event, context):
     create_svg(books, lambda_path)
     bucket_name = "book-to-svg"
     s3 = boto3.resource("s3")
-    s3.meta.client.upload_file(lambda_path, bucket_name, file_name)
+    s3.meta.client.upload_file(lambda_path, bucket_name, file_name, ExtraArgs={'ContentType': 'image/svg+xml', 'ACL': 'public-read'})
 
     message = 'Uploaded Successfully!'  
     return { 
@@ -68,8 +68,8 @@ def _get_image_from_url(url):
 
 
 def create_svg(books, path):
-    drawingWidth = 500
-    drawingHeight = 500
+    drawingWidth = 650
+    drawingHeight = 350
     padding = 30
     svg = draw.Drawing(drawingWidth, drawingHeight)
     width = 100

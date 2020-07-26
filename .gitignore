@@ -132,3 +132,6 @@ dmypy.json
 keysecret.json
 example_json/*
 example_json
+
+# lambda zip file
+function.zip
