@@ -1,4 +1,5 @@
 import boto3
+import datetime
 import drawSvg as draw
 import json
 import os
@@ -15,12 +16,18 @@ def handler(event, context):
     create_svg(books, lambda_path)
     bucket_name = "book-to-svg"
     s3 = boto3.resource("s3")
-    s3.meta.client.upload_file(lambda_path, bucket_name, file_name, ExtraArgs={'ContentType': 'image/svg+xml', 'ACL': 'public-read'})
+    s3.meta.client.upload_file(lambda_path, bucket_name, file_name, ExtraArgs={'ContentType': 'image/svg+xml', 'Expires': tomorrow(), 'ACL': 'public-read'})
 
     message = 'Uploaded Successfully!'  
     return { 
         'success' : message
     }  
+
+
+def tomorrow():
+    today = datetime.date.today()
+    tomorrow = today + datetime.timedelta(days=1)
+    return tomorrow.isoformat()
 
 
 def get_goodreads_user(key_secret, user_id=97013748):
