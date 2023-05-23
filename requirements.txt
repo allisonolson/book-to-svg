@@ -1,4 +1,4 @@
 boto3==1.14.28
 drawSvg==1.6.1
-requests==2.24.0
+requests==2.31.0
 xmltodict==0.12.0
